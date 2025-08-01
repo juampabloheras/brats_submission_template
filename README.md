@@ -42,10 +42,8 @@ cd brats_submission_template
 > Tip:  The next steps (Step 1–Step 5) are also included in the helper script build_and_run_commands.sh.  Run the script with after uncommenting each step one at a time. 
 
 ## 1  Authenticate with Synapse
-
+Log in to the Synapse Docker registry, and use your **Personal Access Token (PAT)** when prompted for a password.
 ```bash
-# Log in to the Synapse Docker registry
-# Use your **Personal Access Token (PAT)** when prompted for a password
 export SYNAPSE_USERNAME="<your‑synapse‑username>"
 
 docker login docker.synapse.org -u "$SYNAPSE_USERNAME"
