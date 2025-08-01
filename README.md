@@ -1,6 +1,6 @@
 # BraTS 2025 Submission Template
 
-This repository is a minimal template for packaging your BraTS submission inside a Docker container.  Follow the steps below to build, test, and pushyour image to the Synapse container registry.
+This repository is a minimal template for packaging your BraTS submission inside a Docker container.  Follow the steps below to build, test, and push your image to the Synapse container registry.
 
 > 📄 **Official submission guide:** [https://www.synapse.org/Synapse\:syn64153130/wiki/633742](https://www.synapse.org/Synapse:syn64153130/wiki/633742)
 
