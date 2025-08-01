@@ -1,80 +1,92 @@
 # BraTS 2025 Submission Template
 
-This repository is a template for packaging your BraTS submission in a reproducible Docker container. 
-Follow the steps below to build, test, and push your image to the Synapse Docker registry.
+This repository is a minimal template for packaging your BraTS submission inside a Docker container.  Follow the steps below to build, test, and pushyour image to the Synapse container registry.
 
-Reference: https://www.synapse.org/Synapse:syn64153130/wiki/633742
+> 📄 **Official submission guide:** [https://www.synapse.org/Synapse\:syn64153130/wiki/633742](https://www.synapse.org/Synapse:syn64153130/wiki/633742)
 
 ---
-##  Quick start- clone this template
+
+## 1  Quick Start – Clone the template
 
 ```bash
-$ git clone https://github.com/juampabloheras/brats_submission_template.git && cd brats_submission_template
+# Clone the repository and enter the directory
+git clone https://github.com/juampabloheras/brats_submission_template.git
+cd brats_submission_template
 ```
+
 ---
 
-##  Repository template layout
+## 2  Repository layout
 
 ```text
 .
-├── Dockerfile                # Runtime image (PyTorch + CUDA 12.1)
-├── build_and_run_commands.sh # Helper script to build / test / push
-├── requirements.txt          # Python dependencies
-├── checkpoints/
-│   └── final_epoch.pth       # Example model weights
-├── main.py                   # Entry‑point according to BraTS specification
-├── tools/                    # Pipeline utilities
+├── Dockerfile                  # Runtime base (PyTorch + CUDA 12.1)
+├── build_and_run_commands.sh   # Helper script: build / test / push
+├── requirements.txt            # Python dependencies
+├── checkpoints/                # Example weights
+│   └── final_epoch.pth
+├── main.py                     # BraTS‑spec entry‑point
+├── tools/                      # Pipeline utilities
 │   ├── inference.py
 │   ├── postprocessing.py
 │   ├── preprocessing.py
 │   ├── read_write.py
 │   ├── sitk_stuff.py
 │   └── torch_stuff.py
-└── data/
-    ├── example_input/        # Tiny sample case for local tests
-    └── example_output/       # Populated after a local run
+└── data/                       # Example I/O for local tests
+    ├── example_input/
+    └── example_output/         # Populated after a test run
 ```
 
 ---
 
-The following steps are included in the build_and_run_commands.sh file as well.
-
-## Log into Synapse:
-
-   ```bash
-   docker login docker.synapse.org -u "$SYNAPSE_USERNAME" 
-   ```
-
-> When prompted for a password, use your Synapse **Personal Access Tokens (PAT)**. Instructions for creating a PAT can be found here: https://python-docs.synapse.org/en/stable/tutorials/authentication/#:~:text=Create%20a-,Personal%20Access%20Token,-(aka%3A%20Synapse
-
-## Define your specific variables
-```bash
-PROJECT_ID="synXXXXXXXX" #  (**) Change to your Project Synapse Project ID (same as the one in the val)
-IMAGE_NAME="brats-ssa-spark" # (**) The name you would like to give your Docker image 
-TAG="latest"  # Tag for the Docker image (e.g., "latest", "v1", etc.)
-DOCKERFILE_DIR="." # Directory containing the Dockerfile
-
-INPUT_DIR="$(pwd)/data/example_input" # Absolute path to the input directory 
-OUTPUT_DIR="$(pwd)/data/example_output" # Absolute path to the output directory
-
-SYNAPSE_USERNAME="your_username" # (**) Replace with your Synapse username 
-```
-> If you need to create a new project to get the PROJECT_ID, instructions can be found here: https://www.synapse.org/Synapse:syn64153130/wiki/632674#:~:text=to%20the%20Challenge.-,Create,-a%20Synapse%20Project
-
-##  Building the image manually
+## 3  Authenticate with Synapse
 
 ```bash
-docker build -t docker.synapse.org/$PROJECT_ID/$IMAGE_NAME:$TAG .
+# Log in to the Synapse Docker registry
+# Use your **Personal Access Token (PAT)** when prompted for a password
+export SYNAPSE_USERNAME="<your‑synapse‑username>"
+
+docker login docker.synapse.org -u "$SYNAPSE_USERNAME"
 ```
 
+*Create a PAT*: [https://python-docs.synapse.org/en/stable/tutorials/authentication/#personal-access-tokens](https://python-docs.synapse.org/en/stable/tutorials/authentication/#personal-access-tokens)
 
 ---
 
-##  Local test run
+## 4  Define environment variables
 
-Runs the image with no GPU and no network. This is useful for testing before submitting to Synapse.
 ```bash
-# CPU‑only test (no network)
+# Mandatory
+PROJECT_ID="synXXXXXXXX"      # ← Your Synapse project ID
+IMAGE_NAME="brats-ssa-spark-thebest"  # ← Your desired Docker image name
+TAG="latest"                 # ← Image tag (e.g. latest, v1)
+
+
+DOCKERFILE_DIR="."            # Directory containing the Dockerfile
+
+# Local test paths (these should be absolute paths!) 
+INPUT_DIR="$(pwd)/data/example_input"
+OUTPUT_DIR="$(pwd)/data/example_output"
+```
+
+*Need a new project for a PROJECT_ID?* [https://www.synapse.org/Synapse\:syn64153130/wiki/632674#Create-a-Synapse-Project](https://www.synapse.org/Synapse:syn64153130/wiki/632674#Create-a-Synapse-Project)
+
+---
+
+## 5  Build the Docker image
+
+```bash
+docker build -t docker.synapse.org/$PROJECT_ID/$IMAGE_NAME:$TAG "$DOCKERFILE_DIR"
+```
+
+---
+
+## 6  Local test run
+
+### CPU‑only (no network)
+
+```bash
 docker run \
   --rm \
   --network none \
@@ -85,10 +97,10 @@ docker run \
   docker.synapse.org/$PROJECT_ID/$IMAGE_NAME:$TAG
 ```
 
-Inspect `/data/example_output` to confirm the pipeline produced results.
+Check `data/example_output` for the generated results.
 
-### GPU test (Linux + CUDA host)
-This is how evaluation will be done in Synapse. Only run this if you have a GPU available and want to test the full functionality.
+### GPU (Linux + CUDA host)
+
 ```bash
 docker run \
   --rm \
@@ -99,6 +111,18 @@ docker run \
   --memory 16G --shm-size 4G \
   docker.synapse.org/$PROJECT_ID/$IMAGE_NAME:$TAG
 ```
+
+*Note*: This is the same configuration the Synapse evaluation system uses.
+
+---
+
+## 7  Push the image to Synapse 
+
+```bash
+docker push docker.synapse.org/$PROJECT_ID/$IMAGE_NAME:$TAG
+```
+
+Ensure you have **Docker Push/Pull** permissions for your PAT and that the Docker repository has been created under your project.
 
 ---
 
