@@ -6,7 +6,7 @@ This repository is a minimal template for packaging your BraTS submission inside
 
 ---
 
-## 1  Quick Start – Clone the template
+##  Quick Start 
 
 ```bash
 # Clone the repository and enter the directory
@@ -16,7 +16,7 @@ cd brats_submission_template
 
 ---
 
-## 2  Repository layout
+##  Repository layout
 
 ```text
 .
@@ -39,8 +39,9 @@ cd brats_submission_template
 ```
 
 ---
+> Tip:  The next steps (Step 1–Step 5) are also included in the helper script build_and_run_commands.sh.  Run the script with after uncommenting each step one at a time. 
 
-## 3  Authenticate with Synapse
+## 1  Authenticate with Synapse
 
 ```bash
 # Log in to the Synapse Docker registry
@@ -54,7 +55,7 @@ docker login docker.synapse.org -u "$SYNAPSE_USERNAME"
 
 ---
 
-## 4  Define environment variables
+## 2  Define environment variables
 
 ```bash
 # Mandatory
@@ -74,7 +75,7 @@ OUTPUT_DIR="$(pwd)/data/example_output"
 
 ---
 
-## 5  Build the Docker image
+## 3  Build the Docker image
 
 ```bash
 docker build -t docker.synapse.org/$PROJECT_ID/$IMAGE_NAME:$TAG "$DOCKERFILE_DIR"
@@ -82,7 +83,7 @@ docker build -t docker.synapse.org/$PROJECT_ID/$IMAGE_NAME:$TAG "$DOCKERFILE_DIR
 
 ---
 
-## 6  Local test run
+## 4  Local test run
 
 ### CPU‑only (no network)
 
@@ -116,7 +117,7 @@ docker run \
 
 ---
 
-## 7  Push the image to Synapse 
+## 5  Push the image to Synapse 
 
 ```bash
 docker push docker.synapse.org/$PROJECT_ID/$IMAGE_NAME:$TAG
