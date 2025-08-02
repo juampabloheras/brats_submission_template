@@ -13,7 +13,7 @@ COPY . /spark
 # Set permissions for the /spark directory
 RUN chmod -R 777 /spark
 
-RUN mkdir -p /spark/imagesTs && chmod -R 777 /spark/imagesTs
+# RUN mkdir -p /spark/imagesTs && chmod -R 777 /spark/imagesTs
 
 WORKDIR /spark
 
