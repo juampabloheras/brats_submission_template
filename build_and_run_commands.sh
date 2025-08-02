@@ -52,14 +52,14 @@ SYNAPSE_USERNAME="your_username" # (**) Replace with your Synapse username
 # Step 3) # Run the image (no GPU, no network)- Useful for testing before submitting to Synapse
 
 # echo "Running container (no GPU, no network)..."
-docker run \
-    --rm \
-    --network none \
-    --env NVIDIA_VISIBLE_DEVICES=0 \
-    --volume $INPUT_DIR:/input:ro \
-    --volume $OUTPUT_DIR:/output:rw \
-    --memory=16G --shm-size 4G \
-    docker.synapse.org/$PROJECT_ID/$IMAGE_NAME:$TAG
+# docker run \
+#     --rm \
+#     --network none \
+#     --env NVIDIA_VISIBLE_DEVICES=0 \
+#     --volume $INPUT_DIR:/input:ro \
+#     --volume $OUTPUT_DIR:/output:rw \
+#     --memory=16G --shm-size 4G \
+#     docker.synapse.org/$PROJECT_ID/$IMAGE_NAME:$TAG
 
 
 
