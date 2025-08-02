@@ -4,6 +4,7 @@ This repository is a minimal template for packaging your BraTS submission inside
 
 > 📄 **Official submission guide:** [https://www.synapse.org/Synapse\:syn64153130/wiki/633742](https://www.synapse.org/Synapse:syn64153130/wiki/633742)
 
+#### For submissions made with nnU-Net, additional files relevant to submitting a Docker container can be found in  `additional_template`.
 ---
 
 ##  Quick Start 
