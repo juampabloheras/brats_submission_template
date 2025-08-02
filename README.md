@@ -21,24 +21,24 @@ cd brats_submission_template
 
 ```text
 .
-├── Dockerfile                  # Runtime base (PyTorch + CUDA 12.1)
-├── requirements.txt            # Python dependencies
-├── checkpoints/                # Example weights
+├── Dockerfile                                             # Runtime base (PyTorch + CUDA 12.1)
+├── requirements.txt                                       # Python dependencies
+├── checkpoints/                                           # Example weights
 │   └── final_epoch.pth
-├── main.py                     # BraTS‑spec entry‑point
-├── tools/                      # Pipeline utilities
+├── main.py                                                # BraTS‑specific entry‑point
+├── tools/                                                 # Pipeline utilities
 │   ├── inference.py
 │   ├── postprocessing.py
 │   ├── preprocessing.py
 │   ├── read_write.py
 │   ├── sitk_stuff.py
 │   └── torch_stuff.py
-├── build_and_run_commands.sh   # Helper script: build / test / push
-├── spark-presentation-brats-submission.pdf # Tutorial slides
-├── additional_template # Template for nnU-Net based container
-└── data/                       # Example I/O for local tests
+├── build_and_run_commands.sh                              # Helper script: build / test / push
+├── spark-presentation-brats-submission.pdf                # Tutorial slides
+├── additional_template                                    # Template for nnU-Net based container
+└── data/                                                  # Example I/O for local tests
     ├── example_input/
-    └── example_output/         # Populated after a test run
+    └── example_output/                                    # Populated after a test run
 ```
 
 ---
