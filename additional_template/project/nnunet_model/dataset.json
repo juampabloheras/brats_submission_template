@@ -1,0 +1,11 @@
+{
+    "channel_names": {
+        "0": "US"
+    },
+    "labels": {
+        "background": 0,
+        "tumor": 1
+    },
+    "numTraining": 587,
+    "file_ending": ".png"
+}
