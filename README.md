@@ -7,6 +7,9 @@ This repository is a minimal template for packaging your BraTS submission inside
 #### For submissions made with nnU-Net, additional files relevant to submitting a Docker container can be found in  `additional_template`.
 ---
 
+##  Accompanying Docker Tutorial Video
+[![Tutorial Video](https://img.youtube.com/vi/p8nY2e5kGmg/0.jpg)](https://www.youtube.com/watch?v=p8nY2e5kGmg)
+
 ##  Quick Start 
 
 ```bash
